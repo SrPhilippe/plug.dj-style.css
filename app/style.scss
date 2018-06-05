@@ -24,7 +24,7 @@ $black80: rgba(0, 0, 0, .8);
 	background-image: url(images/background.png) !important;
 }
 
-#user-rollover, #waitlist {
+#user-rollover {
 	&.is-staff {
 		.thumb {
 			border-color: $staffCOLOR !important;
@@ -43,11 +43,11 @@ $black80: rgba(0, 0, 0, .8);
 					top: 29px;
 					width: 15px;
 					height: 15px;
-					background: url(images/icons/icon-medal.png) no-repeat;
+					background: url(images/icons/icon-battery.png) no-repeat;
 					background-position: center;
 				}
 				&:after {
-					content: "Habilitados Team";
+					content: "Carregado";
 					top: 29px;
 					left: 21px;
 					text-shadow: 0 1px 5px $highlight;
@@ -69,6 +69,8 @@ $black80: rgba(0, 0, 0, .8);
 		}
 	}
 	.meta {
+		  background: linear-gradient(to bottom, hsla(67, 81%, 15%, 1) 10%, rgba(0,0,0,.8) 90%);
+			box-shadow: inset 0.5px 1px 0 0 $highlight50;
 		.showID {
 			position: relative;
 			top: 98px !important;
@@ -78,6 +80,10 @@ $black80: rgba(0, 0, 0, .8);
 			padding: 6px 10px;
 			box-shadow: inset 0px 1px 0 1px rgba(255, 255, 255, .1);
 			background: linear-gradient(to bottom, transparent, $black50);
+			&::selection {
+				background: $highlight;
+				color: #000;
+			}
 		}
 		&.online .status {
 			span {
@@ -87,6 +93,9 @@ $black80: rgba(0, 0, 0, .8);
 				border-color: $highlight;
 			}
 		}
+	}
+	.info, .action .actions {
+		  background: linear-gradient(90deg, hsla(67, 81%, 10%, 1) 10%, #000 90%) !important;
 	}
 }
 
@@ -102,6 +111,9 @@ $black80: rgba(0, 0, 0, .8);
 
 	// Chat instance
 	#chat {
+		.moderation {
+			color: $staffCOLOR;
+		}
 		.cm {
 			animation: fadeIn .8s;
 			&.mention {
@@ -152,30 +164,19 @@ $black80: rgba(0, 0, 0, .8);
 			}
 		}
 	}
+	#chat-input {
+		background: hsla(67, 50%, 10%, 1) !important;
+		&:focus-within {
+			box-shadow: 0 0 0 1px $highlight !important;
+			background: transparent !important;
+		}
+	}
 }
 
 // Community playing-top
 .community .community__playing-top {
 	background: #000;
 	color: #fff;
-}
-
-.user-level-dropdown {
-	.user-level-dropdown__welcome .user-name {
-		text-transform: uppercase;
-	}
-	.user-level-dropdown__level-text {
-		color: $highlight;
-	}
-
-	.fa {
-		background-color: $highlight;
-	}
-
-	.btn-level {
-		background: linear-gradient(to top, hsla(67, 81%, 20%, 1), rgb(186,206,22));
-		box-shadow: inset 0 2px 0 0 rgba(255, 255, 255, .5);
-	}
 }
 
 // Community top-right
@@ -191,6 +192,30 @@ $black80: rgba(0, 0, 0, .8);
 		.thumb.small {
 			border-color: $highlight !important;
 			box-shadow: 0 0 10px 1px $highlight;
+		}
+	}
+}
+
+.user-level-dropdown {
+	.user-level-dropdown__welcome .user-name {
+		text-transform: uppercase;
+	}
+	.user-level-dropdown__level-text {
+		color: $highlight !important;
+	}
+
+	.progress-bar, .fa {
+		background-color: $highlight !important;
+	}
+
+	.btn-level {
+		background: linear-gradient(to top, hsla(67, 81%, 20%, 1), rgb(186,206,22)) !important;
+		box-shadow: inset 0 2px 0 0 rgba(255, 255, 255, .5) !important;
+	}
+	// In the case icon-chat-host exists it will apply the style to the next sibling
+	table.community-profile {
+		i.icon-chat-host + span {
+			color: $staffCOLOR !important;
 		}
 	}
 }
