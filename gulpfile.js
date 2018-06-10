@@ -1,23 +1,24 @@
-let gulp = require('gulp');
-
-let ftp = require('vinyl-ftp');
-let gutil = require('gulp-util');
-let sass = require('gulp-sass');
-let autoprefixer = require('gulp-autoprefixer');
+let gulp = require('gulp'),
+    ftp = require('vinyl-ftp'),
+    gutil = require('gulp-util'),
+    sass = require('gulp-sass'),
+    csso = require('gulp-csso'),
+    autoprefixer = require('gulp-autoprefixer')
 
 gulp.task('default', () => {
     gulp.watch('./app/*.scss', ['css']);
 });
 
 gulp.task('css', () => {
-    return  gulp.src('./app/style.scss')
-            .pipe(sass({
-                outputStyle: 'compressed'
-            }).on('error', sass.logError))
-            .pipe(autoprefixer({
-                browsers: ['last 2 versions']
-            }))
-            .pipe(gulp.dest('./dist'));
+    return gulp.src('./app/style.scss')
+        .pipe(sass({
+            outputStyle: 'compressed'
+        }).on('error', sass.logError))
+        .pipe(csso())
+        .pipe(autoprefixer({
+            browsers: ['last 1 version']
+        }))
+        .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('deploy', () => {
@@ -33,7 +34,10 @@ gulp.task('deploy', () => {
         './dist/**'
     ];
 
-    return gulp.src(globs, {base: './dist', buffer: false})
+    return gulp.src(globs, {
+            base: './dist',
+            buffer: false
+        })
         .pipe(conn.differentSize('/public_html/plug')) // only upload newer files
         .pipe(conn.dest('/public_html/plug'));
 });
